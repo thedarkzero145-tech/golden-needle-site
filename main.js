@@ -337,6 +337,104 @@ const setupInteractions = () => {
             openModal(`${title} Hub`, `Accessing the secure ${title} environment. Authenticating your identity...`, 'lock_open');
         });
     });
+
+    // --- Expose interactions to global window for HTML inline buttons ---
+    window.triggerScan = () => {
+        openModal('LiDAR Scanning', '', '3d_rotation');
+        const modalBody = document.getElementById('modal-body');
+        modalBody.innerHTML = `
+            <div class="flex flex-col items-center gap-4 w-full relative">
+                <h2 class="text-2xl font-bold text-primary tracking-widest uppercase">Standard Cyborg Integration</h2>
+                <button id="unit-toggle" class="absolute top-1 right-2 text-xs font-mono bg-neutral-800 text-primary px-3 py-1 z-30 rounded border border-primary/50 hover:bg-neutral-700 shadow-md transition-colors hidden pointer-events-auto">Units: CM</button>
+                <div class="relative w-full h-64 bg-neutral-900 rounded-lg overflow-hidden border border-primary/30 flex items-center justify-center">
+                    <!-- Laser Grid Background -->
+                    <div class="absolute inset-0 opacity-10 animate-pulse" style="background-image: linear-gradient(#ecb613 1px, transparent 1px), linear-gradient(90deg, #ecb613 1px, transparent 1px); background-size: 20px 20px;"></div>
+                    
+                    <div class="text-primary font-mono text-xs absolute top-4 left-4 flex flex-col gap-1 z-10">
+                        <span>> INITIALIZING LiDAR...</span>
+                        <span id="scan-prog-1">> ACQUIRING MESH DATA...</span>
+                        <span id="scan-prog-2" class="animate-pulse">> POINTS: 2,540,192</span>
+                    </div>
+                    
+                    <!-- 3D Wireframe Mock -->
+                    <div class="w-32 h-48 border-2 border-primary/50 relative flex items-center justify-center perspective-[500px] z-10 bg-black/50 backdrop-blur-sm rounded-lg shadow-2xl">
+                        <div class="absolute inset-0 border border-primary/30 rounded-lg animate-pulse shadow-[0_0_20px_#ecb613]"></div>
+                        <span id="body-icon" class="material-symbols-outlined text-6xl text-primary animate-spin" style="animation-duration: 3s; animation-iteration-count: 1;">accessibility_new</span>
+                        
+                        <!-- Interactive Measurements Overlay -->
+                        <div id="measurements-overlay" class="absolute inset-0 z-20 pointer-events-none opacity-0 transition-opacity duration-1000">
+                            <!-- Shoulder -->
+                            <div class="measure-line w-[80%] h-[2px] top-[20%] left-[10%]"></div>
+                            <div class="measure-label" id="lbl-shoulder" style="top:-2%; left:50%; transform:translateX(-50%)"></div>
+                            
+                            <!-- Waist (Ring) -->
+                            <div class="measure-ring w-[60%] h-[30px] top-[40%] left-[20%]"></div>
+                            <div class="measure-label" id="lbl-waist" style="top:45%; left:-50%;"></div>
+                            
+                            <!-- Arm -->
+                            <div class="measure-line w-[2px] h-[35%] top-[25%] left-[85%]"></div>
+                            <div class="measure-label" id="lbl-arm" style="top:35%; left:95%;"></div>
+                            
+                            <!-- Back -->
+                            <div class="measure-line w-[2px] h-[50%] top-[20%] left-[50%] opacity-50"></div>
+                            <div class="measure-label" id="lbl-back" style="top:45%; left:55%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <p id="scan-status-text" class="text-neutral-400 text-sm mt-2">Constructing 3D Wireframe...</p>
+                <div class="flex gap-4 mt-4 w-full">
+                    <button class="flex-1 bg-primary text-neutral-dark px-4 py-3 rounded-lg font-bold hover:scale-[1.02] transition-transform" onclick="closeModal(); window.showConfirmation();">Save Avatar Payload</button>
+                </div>
+            </div>
+        `;
+
+        // Handle the timing logic to "snap" the measurements at the end of the scan!
+        setTimeout(() => {
+            const overlay = document.getElementById('measurements-overlay');
+            const toggle = document.getElementById('unit-toggle');
+            const statusTxt = document.getElementById('scan-status-text');
+            const prog1 = document.getElementById('scan-prog-1');
+            const prog2 = document.getElementById('scan-prog-2');
+            const icon = document.getElementById('body-icon');
+
+            if (icon) {
+                icon.style.animationIterationCount = '0'; // stop spinning
+            }
+
+            if (prog1) prog1.innerText = '> MESH ACQUIRED & LOCKED';
+            if (prog2) {
+                prog2.classList.remove('animate-pulse');
+                prog2.innerText = '> MEASUREMENTS EXTRACTED';
+            }
+            if (statusTxt) statusTxt.innerText = "3D Wireframe constructed. High-fidelity measurements mapped onto avatar.";
+
+            if (overlay) overlay.classList.replace('opacity-0', 'opacity-100');
+            if (toggle) toggle.classList.remove('hidden');
+
+            const updateLabels = () => {
+                const lblS = document.getElementById('lbl-shoulder');
+                const lblW = document.getElementById('lbl-waist');
+                const lblA = document.getElementById('lbl-arm');
+                const lblB = document.getElementById('lbl-back');
+
+                if (lblS) { lblS.innerText = 'SH: ' + measurementState.getDisplayValue('shoulder'); lblS.style.transform = `translateX(-50%) scale(1.1)`; setTimeout(() => lblS.style.transform = 'translateX(-50%) scale(1)', 150); }
+                if (lblW) { lblW.innerText = 'W: ' + measurementState.getDisplayValue('waist'); lblW.style.transform = `scale(1.1)`; setTimeout(() => lblW.style.transform = 'scale(1)', 150); }
+                if (lblA) { lblA.innerText = 'A: ' + measurementState.getDisplayValue('arm'); lblA.style.transform = `scale(1.1)`; setTimeout(() => lblA.style.transform = 'scale(1)', 150); }
+                if (lblB) { lblB.innerText = 'B: ' + measurementState.getDisplayValue('back'); lblB.style.transform = `scale(1.1)`; setTimeout(() => lblB.style.transform = 'scale(1)', 150); }
+
+                if (toggle) toggle.innerText = 'Units: ' + measurementState.unit.toUpperCase();
+            };
+
+            updateLabels();
+
+            if (toggle) {
+                toggle.onclick = () => {
+                    measurementState.toggleUnit();
+                    updateLabels();
+                };
+            }
+        }, 3000);
+    };
 };
 
 setupInteractions();

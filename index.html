@@ -263,11 +263,9 @@
           <span
             class="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full"></span>
         </a>
-        <a class="text-neutral-dark hover:text-primary transition-colors text-sm font-medium leading-normal dark:text-background-light dark:hover:text-primary relative group"
-          href="#">
-          Bespoke
-          <span
-            class="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full"></span>
+        <a class="text-primary transition-colors text-sm font-medium leading-normal relative group" href="#">
+          Collection
+          <span class="absolute -bottom-1 left-0 w-full h-[1px] bg-primary transition-all duration-300"></span>
         </a>
         <a class="text-neutral-dark hover:text-primary transition-colors text-sm font-medium leading-normal dark:text-background-light dark:hover:text-primary relative group"
           href="#">
@@ -292,208 +290,202 @@
         </button>
       </div>
     </header>
-    <main class="flex-grow">
-      <!-- Hero Section -->
-      <section class="@container">
-        <div class="flex flex-col gap-6 px-4 py-16 lg:px-40 lg:py-24 @[864px]:flex-row items-center">
-          <div class="flex flex-col gap-8 flex-1 order-2 @[864px]:order-1">
-            <div class="flex flex-col gap-4 text-left pointer-events-none">
-              <span class="text-primary text-sm font-bold uppercase tracking-widest">Future of Tailoring</span>
-              <h1
-                class="text-neutral-dark dark:text-background-light text-5xl font-black leading-[1.1] tracking-[-0.03em] lg:text-7xl">
-                Tailoring the <br /><span class="text-primary">Future.</span>
-              </h1>
-              <h2
-                class="text-neutral-dark/80 dark:text-background-light/80 text-lg font-light leading-relaxed max-w-md">
-                Experience the convergence of digital precision and artisanal craft. Welcome to the new era of bespoke.
-              </h2>
-            </div>
-            <div class="flex flex-wrap gap-4">
-              <button
-                class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-primary text-neutral-dark text-base font-bold transition-transform hover:scale-105">
-                <span class="truncate">Explore Collection</span>
-              </button>
-              <button
-                class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-neutral-light text-neutral-dark text-base font-bold hover:bg-neutral-light/80 dark:bg-white/10 dark:text-background-light transition-colors">
-                <span class="truncate">Start Customizing</span>
-              </button>
-            </div>
-          </div>
-          <!-- Allow interaction with the core floating area -->
-          <div
-            class="w-full flex-1 order-1 @[864px]:order-2 relative flex justify-center items-center min-h-[400px] pointer-events-none"
-            style="opacity: 0.1;">
-            <!-- Faded out this static visual section so the Matter.js physics in the background shine through instead! -->
-          </div>
+    <main class="flex-grow pt-16 pb-0">
+
+      <!-- Header Section for Collection -->
+      <section
+        class="max-w-6xl mx-auto px-6 lg:px-10 mb-12 flex flex-col md:flex-row md:justify-between md:items-end gap-6">
+        <div>
+          <span class="text-primary text-[10px] font-bold tracking-[0.25em] uppercase mb-4 block">Autumn / Winter
+            2024</span>
+          <h1
+            class="text-neutral-dark dark:text-background-light text-5xl md:text-6xl lg:text-[72px] tracking-tight leading-[1.1]">
+            <span class="font-light">The Algorithm</span><br />
+            <span class="font-black">Collection</span>
+          </h1>
+        </div>
+
+        <div class="flex flex-wrap gap-3 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">
+          <button
+            class="px-5 py-2 rounded-full border border-neutral-200 dark:border-neutral-700 hover:border-primary text-neutral-500 hover:text-primary transition-colors flex items-center gap-2">
+            Material <span class="material-symbols-outlined text-[14px]">expand_more</span>
+          </button>
+          <button
+            class="px-5 py-2 rounded-full border border-neutral-200 dark:border-neutral-700 hover:border-primary text-neutral-500 hover:text-primary transition-colors flex items-center gap-2">
+            Occasion <span class="material-symbols-outlined text-[14px]">expand_more</span>
+          </button>
+          <button
+            class="px-5 py-2 rounded-full border border-neutral-200 dark:border-neutral-700 hover:border-primary text-neutral-500 hover:text-primary transition-colors flex items-center gap-2">
+            Cut <span class="material-symbols-outlined text-[14px]">expand_more</span>
+          </button>
+          <button class="px-5 py-2 rounded-full border-none text-neutral-400 hover:text-neutral-dark transition-colors">
+            Reset
+          </button>
         </div>
       </section>
 
-      <!-- Process Section -->
-      <section class="flex flex-col gap-10 px-4 py-20 lg:px-40 bg-neutral-50/90 dark:bg-white/5 @container">
-        <div class="flex flex-col gap-4 text-center items-center">
-          <h2
-            class="text-neutral-dark dark:text-background-light text-3xl font-bold leading-tight md:text-4xl max-w-[720px]">
-            The Atelier Process
-          </h2>
-          <p class="text-neutral-medium text-base font-normal leading-normal max-w-[720px]">
-            From digital scan to hand-finished garment.
-          </p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Step 1 -->
-          <div
-            class="group flex flex-col gap-4 p-6 bg-white dark:bg-neutral-800/50 rounded-xl hover:shadow-lg transition-all border border-transparent hover:border-primary/20 tilt-card">
-            <div class="w-full h-48 rounded-lg overflow-hidden relative">
-              <div class="scan-laser"></div>
-              <div class="absolute inset-0 bg-neutral-900/10 group-hover:bg-transparent transition-colors z-10"></div>
-              <img alt="3D Body Scanning"
-                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                data-alt="Person standing in futuristic 3d scanner light"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-0GK96HlLrC5Wrx-fe3Mh03yuxpxQOx--1Ide_5kgWB108GkhQfcup4LdkMAHymgDjofCOdWaZK7h_-KcxcadbwifyACgelvFPK0SFNBWlSdZtWbSgNvr17otHGrPcpyMCgtrSxTTcVLq9EeIDU44mQ6OEsckNviMDhIuYSGOEC4sxgPO_yXl4LejKxweX2O0h-2YSd11AIKvTGRm0M58iB7nrhetJfydf4f4-sqZhTszp4X2by0I0cMhbRrGb7DqUfTNbwUeU8nD" />
-            </div>
-            <div>
-              <div class="flex items-center gap-2 mb-2">
-                <span class="material-symbols-outlined text-primary">3d_rotation</span>
-                <h3 class="text-neutral-dark dark:text-white text-lg font-bold leading-normal">3D Body Scanning</h3>
-              </div>
-              <p class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">Precision measurements captured
-                in seconds using LIDAR technology.</p>
-            </div>
-          </div>
-          <!-- Step 2 -->
-          <div
-            class="group flex flex-col gap-4 p-6 bg-white dark:bg-neutral-800/50 rounded-xl hover:shadow-lg transition-all border border-transparent hover:border-primary/20 tilt-card">
-            <div class="w-full h-48 rounded-lg overflow-hidden relative">
-              <div class="wireframe-grid"></div>
-              <div class="absolute inset-0 bg-neutral-900/10 group-hover:bg-transparent transition-colors z-10"></div>
-              <img alt="Virtual Fitting"
-                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                data-alt="Digital wireframe of a suit on a screen"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjCzNcJOqOhGdXJiqJjW_KlBPvidJAJ794_NxWNiDi_n-UXUq4c-VTlIwnOXVK7UAQGOgpWbSeuT3yr8sNrS_gmiNlRgMzSHtkXwfVyRgELYuDWEmf3Vb5PBnfAq01ZRFoYQvhbcHB7i1S9Tw7mIG3Ggwg7dry6w9rVDqlRfdqa1ufWkN7IAQv5c2r2jw2kXm0KDRg7Vt_F5aqgYnoYAZDMWWVXX3WUcFp6tkxeMgAGozMBjhMRs9RnOb_uiLJdabyrxYnaLNgFvwD" />
-            </div>
-            <div>
-              <div class="flex items-center gap-2 mb-2">
-                <span class="material-symbols-outlined text-primary">view_in_ar</span>
-                <h3 class="text-neutral-dark dark:text-white text-lg font-bold leading-normal">Virtual Fitting</h3>
-              </div>
-              <p class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">Visualize your garment in
-                real-time with our physics-based cloth simulation.</p>
-            </div>
-          </div>
-          <!-- Step 3 -->
-          <div
-            class="group flex flex-col gap-4 p-6 bg-white dark:bg-neutral-800/50 rounded-xl hover:shadow-lg transition-all border border-transparent hover:border-primary/20 tilt-card">
-            <div class="w-full h-48 rounded-lg overflow-hidden relative">
-              <svg class="stitch-svg">
-                <rect width="100%" height="100%" rx="8" class="stitch-rect"></rect>
-              </svg>
-              <div class="absolute inset-0 bg-neutral-900/10 group-hover:bg-transparent transition-colors z-10"></div>
-              <img alt="Master Tailoring"
-                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                data-alt="Close up of hands sewing fabric with needle"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzNMrHktgPYpPse5jKxxe9rHTc54XJfzAsITsaFj52EWR_QnDgQ43LUinZtMRK7MOiEGseya25heUgzdW3CQfEl_SPEmWzFfFNxEIZEv65UL2mVuYC8d-Q9nd7uXXW4pXNGTHuuGvqjduN5WhRuyF4Hw6lPqNswGKy2N3tE-tNNf2EgqF0NzB8hH37j4c3G0acXltKfpWtvnidYgmMJLzNZgtXOwhS9-8x40FLKV2wmKe_q7cAZOB3b0OGCA5ibtExEJKKm1vwFxtp" />
-            </div>
-            <div>
-              <div class="flex items-center gap-2 mb-2">
-                <span class="material-symbols-outlined text-primary">gesture</span>
-                <h3 class="text-neutral-dark dark:text-white text-lg font-bold leading-normal">Master Tailoring</h3>
-              </div>
-              <p class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">Hand-stitched by world-renowned
-                artisans to ensure perfect drape.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Collections Grid -->
-      <section class="px-4 py-20 lg:px-40 bg-background-light/95 dark:bg-background-dark/95">
-        <div class="flex justify-between items-end mb-10">
-          <h2 class="text-3xl font-bold text-neutral-dark dark:text-background-light">Curated Editions</h2>
-          <a class="hidden sm:flex items-center gap-1 text-primary hover:text-primary/80 font-medium" href="#">
-            View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
-          </a>
-        </div>
+      <!-- The Grid -->
+      <section class="max-w-6xl mx-auto px-6 lg:px-10">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="group relative aspect-[3/4] overflow-hidden rounded-lg cursor-pointer">
-            <img alt="The Executive"
-              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-              data-alt="Man in dark luxury suit standing in modern office"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_A6Za65HmASeRatNLoA7LQiIPLXVP9h3tZ-FjH5gi3zIBbn0CdI5AQEBPZHRvHrcVv8lzpzZd-oqAuIGzIjKhkv4I9iMNinO51BokZGMrYB9O6NfZOBfWwIo_qs0Yh6pTchcD_8iWLgP65btS_BPJEqhSC2lv-ecNQzHH9viph4BdiOyUqislvZQgcrY2HGCOaQ2gRy-gCXZaijap6lklen-zMfJkeMJcEUw3xKz-TF16QL4OLHMkrnYAKob69upF_sYR38zB7Qjr" />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 flex flex-col justify-end">
-              <h3
-                class="text-white text-xl font-bold mb-1 transform translate-y-2 group-hover:translate-y-0 transition-transform">
-                The Executive</h3>
-              <p class="text-white/80 text-sm opacity-0 group-hover:opacity-100 transition-opacity delay-100">Sharp
-                lines for the modern leader.</p>
+
+          <!-- Row 1 -->
+          <!-- The Executive (Span 2) -->
+          <div
+            class="md:col-span-2 group relative overflow-hidden rounded-[20px] bg-gradient-to-b from-[#e8e9eb] to-[#c7c9cc] aspect-[4/3] md:aspect-auto cursor-pointer tilt-card border border-neutral-200/50 dark:border-neutral-800">
+            <img src="/executive_avatar_1772208040315.png"
+              class="absolute inset-0 w-full h-full object-cover origin-bottom group-hover:scale-105 transition-transform duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div class="absolute bottom-8 left-8 flex items-end">
+              <h3 class="text-white text-3xl font-medium tracking-tight">The Executive <span
+                  class="text-primary font-bold">.01</span></h3>
             </div>
           </div>
-          <div class="group relative aspect-[3/4] overflow-hidden rounded-lg cursor-pointer">
-            <img alt="The Avant-Garde"
-              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-              data-alt="Fashion model in experimental structural clothing"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-645h9RcrRj6GISkQRij3S6AMuWO-d9GpjKoV0nPP7l2R0hFWWgIBJLU_wCwikb-oUbdx6vVPD0R_-3pslUfdsVvjypejrK6mZTx39zHNDD92UEaXlXmQHjmwlL070T3scKteDIXS5j5GTEusaJdsLGS-2Mug_bdJBgNy1futul7BCX92t--oVKXIl4tWi2o9P_CjsUEJFMKWalPbeIAUnOaUj0G3enKqtl3N5tqF5_K1XwkYQ4W0Mr6rQjmBwIknBzDzTa3JB1uG" />
+
+          <!-- The Avant-Garde (Span 1) -->
+          <div
+            class="md:col-span-1 group relative overflow-hidden rounded-[20px] bg-[#e4dcd3] md:h-[500px] cursor-pointer tilt-card border border-neutral-200/50 dark:border-neutral-800">
+            <img src="/avant_garde_shape_1772208059322.png"
+              class="absolute inset-x-0 top-0 w-full h-[75%] object-cover group-hover:scale-105 transition-transform duration-700" />
             <div
-              class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 flex flex-col justify-end">
-              <h3
-                class="text-white text-xl font-bold mb-1 transform translate-y-2 group-hover:translate-y-0 transition-transform">
-                The Avant-Garde</h3>
-              <p class="text-white/80 text-sm opacity-0 group-hover:opacity-100 transition-opacity delay-100">Pushing
-                the boundaries of silhouette.</p>
+              class="absolute inset-x-0 bottom-0 h-[30%] bg-white dark:bg-neutral-900 flex justify-between items-end p-6 border-t border-neutral-200/50 dark:border-neutral-800">
+              <div class="flex flex-col">
+                <span
+                  class="text-neutral-300 dark:text-neutral-600 text-sm font-bold tracking-widest uppercase mb-1">The
+                  Avant-Garde</span>
+                <h3 class="text-neutral-dark dark:text-white text-lg font-bold tracking-tight">The Avant-Garde</h3>
+              </div>
+              <span class="text-primary text-[10px] font-bold tracking-[0.2em] uppercase">AG - 312X</span>
             </div>
           </div>
-          <div class="group relative aspect-[3/4] overflow-hidden rounded-lg cursor-pointer">
-            <img alt="The Ceremonial"
-              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-              data-alt="Elegant velvet tuxedo jacket detail"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXxo_S766K_8FnYGywNHIDupGMBh8I6tFPzmn_vYm8cXrLTNnG7KC2hMcgvIN7EEvdOOKRZuMHbb73qN3nkM6V4wQGu0ITwy0xK4LCvSejQjtchmWXIxfAPiG67iEJ9jLYKSiub2PdQiqkYOEjszzHRxmzp8Wt9eM8-rcRVeltLY1gjNsGO2QK0c6_O0UfcBcHT1hIhJUOCwam1hOdaFATyyh80oM-ngILxKZW15rNZg-pwAcylTgMs0jB-LQu6ld3F5GkfT9B0CJs" />
+
+          <!-- Row 2 -->
+          <!-- Oxford Mesh -->
+          <div class="md:col-span-1 flex flex-col group cursor-pointer h-full">
             <div
-              class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 flex flex-col justify-end">
+              class="w-full h-[300px] rounded-[20px] overflow-hidden relative border border-neutral-200/50 dark:border-neutral-800 tilt-card">
+              <img src="/oxford_mesh_1772208078051.png"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <span
+                class="absolute top-4 left-4 bg-white/95 dark:bg-neutral-900/90 backdrop-blur-sm text-neutral-dark dark:text-white text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded-full shadow-sm">Textile
+                Macro</span>
+            </div>
+            <div class="flex justify-between items-start mt-4 px-2">
+              <div>
+                <h3 class="text-neutral-dark dark:text-white font-bold text-base leading-tight">Oxford Mesh</h3>
+                <p class="text-neutral-500 text-[11px] mt-1">Breathable 3D Knit</p>
+              </div>
+              <span class="text-primary text-[10px] font-bold tracking-[0.2em]">12-092</span>
+            </div>
+          </div>
+
+          <!-- The Ceremonial -->
+          <div
+            class="md:col-span-1 group relative rounded-[20px] overflow-hidden bg-[#f4f4f4] h-[300px] cursor-pointer tilt-card border border-neutral-200/50 dark:border-neutral-800">
+            <img src="/ceremonial_blocks_1772208098803.png"
+              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 mix-blend-multiply dark:mix-blend-normal" />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-white/90 dark:from-black/90 via-transparent to-transparent">
+            </div>
+            <div class="absolute bottom-6 left-6">
               <h3
-                class="text-white text-xl font-bold mb-1 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                class="text-white dark:text-background-light text-2xl font-bold tracking-tight filter drop-shadow-[0_2px_10px_rgba(0,0,0,0.1)] mix-blend-difference">
                 The Ceremonial</h3>
-              <p class="text-white/80 text-sm opacity-0 group-hover:opacity-100 transition-opacity delay-100">Timeless
-                elegance for life's moments.</p>
             </div>
           </div>
-        </div>
-        <div class="mt-8 flex justify-center sm:hidden">
-          <a class="flex items-center gap-1 text-primary hover:text-primary/80 font-medium" href="#">
-            View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
-          </a>
+
+          <!-- Bespoke Only -->
+          <div
+            class="md:col-span-1 flex flex-col justify-center gap-4 p-8 bg-white/50 dark:bg-neutral-900/50 rounded-[20px] border border-neutral-200 dark:border-neutral-800 h-[300px] tilt-card cursor-pointer"
+            onclick="window.triggerScan()">
+            <span class="material-symbols-outlined text-primary text-[28px]">diamond</span>
+            <h3 class="text-neutral-dark dark:text-white text-lg font-bold">Bespoke Only</h3>
+            <p class="text-neutral-500 text-xs leading-relaxed pr-4">Each garment is a unique commission. Our gallery
+              showcases past works and available configurations. Start your digital fitting to unlock exclusive
+              materials.</p>
+            <button
+              class="text-primary text-[10px] font-bold tracking-[0.2em] uppercase mt-2 flex items-center gap-1 hover:text-primary/80 transition-colors w-max">
+              Start Commission <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+            </button>
+          </div>
+
+        </div> <!-- Close previous grid -->
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+
+          <!-- The Digital Twin -->
+          <div
+            class="group relative rounded-[20px] overflow-hidden aspect-[16/10] cursor-pointer tilt-card border border-neutral-200/50 dark:border-neutral-800">
+            <img src="/digital_twin_1772208116222.png"
+              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
+
+            <div
+              class="absolute inset-6 border border-primary/30 flex flex-col items-center justify-center pointer-events-none">
+              <span
+                class="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary -mt-[1px] -mr-[1px] shadow-[0_0_10px_#ecb613]"></span>
+              <span
+                class="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary -mt-[1px] -ml-[1px] shadow-[0_0_10px_#ecb613]"></span>
+              <span
+                class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary -mb-[1px] -mr-[1px] shadow-[0_0_10px_#ecb613]"></span>
+              <span
+                class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary -mb-[1px] -ml-[1px] shadow-[0_0_10px_#ecb613]"></span>
+
+              <span
+                class="bg-[#1b180d]/80 text-primary text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded-sm border border-primary/40 mb-3 backdrop-blur-sm">DIGITAL_TWIN_V2</span>
+              <h3 class="text-white text-3xl font-bold tracking-tight">The Digital Twin</h3>
+            </div>
+          </div>
+
+          <!-- Artisan Finish -->
+          <div
+            class="group relative rounded-[20px] overflow-hidden aspect-[16/10] cursor-pointer tilt-card border border-neutral-200/50 dark:border-neutral-800">
+            <img src="/artisan_finish_1772208132385.png"
+              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+
+            <div class="absolute bottom-8 left-8 right-8 flex justify-between items-end">
+              <div>
+                <h3 class="text-white text-2xl font-bold tracking-tight mb-1">Artisan Finish</h3>
+                <p class="text-neutral-400 text-xs">Hand-rolled lapels</p>
+              </div>
+              <button
+                class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-neutral-dark group-hover:scale-110 transition-transform shadow-[0_5px_15px_rgba(236,182,19,0.4)]">
+                <span class="material-symbols-outlined text-[18px] font-bold">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- Newsletter / Waitlist -->
-      <section class="bg-neutral-light/95 dark:bg-neutral-900/95 px-4 py-20 lg:px-40 text-center">
-        <div class="max-w-2xl mx-auto flex flex-col gap-8 items-center">
-          <div class="space-y-4">
-            <span class="inline-block p-3 rounded-full bg-primary/10 text-primary mb-2">
-              <span class="material-symbols-outlined">diamond</span>
-            </span>
-            <h2 class="text-neutral-dark dark:text-background-light text-4xl font-black tracking-tight">
-              Join the Waitlist
-            </h2>
-            <p class="text-neutral-600 dark:text-neutral-400 text-lg">
-              Limited commissions available for the upcoming season. Secure your fitting appointment before the list
-              closes.
-            </p>
-          </div>
-          <form class="w-full max-w-md flex flex-col sm:flex-row gap-3">
-            <input
-              class="flex-1 rounded-lg border-none bg-white dark:bg-neutral-800 py-3 px-4 text-neutral-dark dark:text-white placeholder-neutral-400 focus:ring-2 focus:ring-primary shadow-sm"
-              placeholder="Enter your email address" type="email" />
+      <div class="flex justify-center mt-12 mb-20">
+        <button
+          class="px-8 py-3 rounded-full border border-neutral-300 dark:border-neutral-700 hover:border-primary text-neutral-500 hover:text-primary transition-colors text-[10px] font-bold tracking-[0.2em] uppercase bg-white dark:bg-neutral-900 shadow-sm">
+          Load Archives
+        </button>
+      </div>
+
+      <!-- Ready to be Measured Section -->
+      <section class="bg-[#1b180d] text-white py-24 text-center px-6 relative overflow-hidden mt-0">
+        <div class="absolute inset-0 opacity-[0.03] blur-sm pointer-events-none mix-blend-screen">
+          <img src="/digital_twin_1772208116222.png" class="w-full h-full object-cover scale-150 grayscale" />
+        </div>
+        <div class="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
+          <h2 class="text-4xl md:text-5xl font-light mb-6 tracking-tight">Ready to be <span
+              class="text-primary font-bold">Measured?</span></h2>
+          <p class="text-neutral-400 text-[15px] mb-10 tracking-wide font-light">The gallery is just the beginning. Your
+            personal pattern awaits in our digital vault.</p>
+          <div class="flex flex-wrap gap-4 justify-center">
             <button
-              class="bg-primary text-neutral-dark font-bold py-3 px-6 rounded-lg hover:bg-primary/90 transition-colors whitespace-nowrap shadow-md hover:shadow-lg"
-              type="button">
-              Request Access
-            </button>
-          </form>
-          <p class="text-xs text-neutral-500 dark:text-neutral-500 mt-4">
-            By joining, you agree to our Terms of Service and Privacy Policy.
-          </p>
+              class="px-8 py-3.5 bg-primary text-neutral-dark font-bold text-[11px] tracking-[0.2em] uppercase rounded-[4px] hover:brightness-110 transition-all shadow-[0_4px_20px_rgba(236,182,19,0.25)] border border-primary"
+              onclick="window.triggerScan()">Book 3D Scan</button>
+            <button
+              class="px-8 py-3.5 bg-transparent text-neutral-300 font-bold text-[11px] tracking-[0.2em] uppercase rounded-[4px] border border-white/20 hover:border-primary hover:text-primary transition-colors">Contact
+              Concierge</button>
+          </div>
         </div>
       </section>
+
     </main>
 
     <!-- Footer -->
