@@ -245,8 +245,8 @@ const setupInteractions = () => {
                                 </div>
                             </div>
                             <p id="scan-status-text" class="text-neutral-400 text-sm mt-2">Constructing 3D Wireframe...</p>
-                            <div class="flex gap-4 mt-2 w-full">
-                                <button class="flex-1 bg-primary text-neutral-dark px-4 py-3 rounded-lg font-bold hover:scale-[1.02] transition-transform" onclick="closeModal(); document.querySelectorAll('.tilt-card')[0].style.visibility = 'visible';">Save Avatar Payload</button>
+                            <div class="flex gap-4 mt-4 w-full">
+                                <button class="flex-1 bg-primary text-neutral-dark px-4 py-3 rounded-lg font-bold hover:scale-[1.02] transition-transform" onclick="closeModal(); document.querySelectorAll('.tilt-card')[0].style.visibility = 'visible'; window.showConfirmation();">Save Avatar Payload</button>
                             </div>
                         </div>
                     `;
@@ -438,3 +438,43 @@ const setupInteractions = () => {
 };
 
 setupInteractions();
+
+// --- 3. The Measurement Confirmed Pop-up Logic ---
+window.showConfirmation = () => {
+    // 1. Get the anti-gravity modal elements
+    const confirmModal = document.getElementById('confirmation-modal');
+    const list = document.getElementById('measurement-list');
+
+    // 2. Format the data from measurementState into the layout requested
+    const unit = measurementState.unit;
+    // Using formatting to append exact unit types instead of raw "in" or "cm" for display aesthetic
+    const displayUnit = unit === 'inches' ? '"' : 'cm';
+    list.innerHTML = `
+        <div class="m-item"><span>Shoulder:</span> <strong>${measurementState.getDisplayValue('shoulder').replace(' in', '"').replace(' cm', 'cm')}</strong></div>
+        <div class="m-item"><span>Waist:</span> <strong>${measurementState.getDisplayValue('waist').replace(' in', '"').replace(' cm', 'cm')}</strong></div>
+        <div class="m-item"><span>Arm Length:</span> <strong>${measurementState.getDisplayValue('arm').replace(' in', '"').replace(' cm', 'cm')}</strong></div>
+        <div class="m-item"><span>Back Length:</span> <strong>${measurementState.getDisplayValue('back').replace(' in', '"').replace(' cm', 'cm')}</strong></div>
+    `;
+
+    // 3. Trigger the physics event + the modal pop!
+    confirmModal.classList.replace('modal-hidden', 'modal-active');
+
+    // Reverse Gravity!
+    world.gravity.y = -0.05;
+};
+
+// Bind actions on the new confirmation popup buttons
+document.getElementById('re-measure')?.addEventListener('click', () => {
+    document.getElementById('confirmation-modal').classList.replace('modal-active', 'modal-hidden');
+    // Return gravity to normal
+    world.gravity.y = 0.5;
+});
+
+document.getElementById('confirm-final')?.addEventListener('click', () => {
+    document.getElementById('confirmation-modal').classList.replace('modal-active', 'modal-hidden');
+    // Return gravity to normal
+    world.gravity.y = 0.5;
+
+    // Optional: Could trigger another thread animation sequence here!
+    console.log("Measurements Stitched to Profile Successfully.");
+});
