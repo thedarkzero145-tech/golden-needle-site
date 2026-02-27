@@ -1,78 +1,8 @@
-import Matter from 'matter-js';
 import { measurementState } from './Measurements.js';
-
-// Module Aliases
-const { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint } = Matter;
-
-// 1. Create Engine & Renderer
-const engine = Engine.create();
-const world = engine.world;
-world.gravity.y = 0.5; // Light gravity for "floating" feel
-
-const render = Render.create({
-    element: document.body,
-    engine: engine,
-    options: {
-        width: window.innerWidth,
-        height: window.innerHeight,
-        wireframes: false,
-        background: '#f4f1ea' // Cream fabric color
-    }
-});
-
-Render.run(render);
-Runner.run(Runner.create(), engine);
-
-// 2. Create the "Business Blocks" (Your Services)
-const services = [
-    { text: 'BESPOKE', color: '#1a472a' },
-    { text: 'REPAIRS', color: '#d4af37' },
-    { text: 'FABRICS', color: '#704214' }
-];
-
-const blocks = services.map((service, i) => {
-    return Bodies.rectangle(200 + i * 150, 100, 180, 80, {
-        restitution: 0.8,
-        render: {
-            fillStyle: service.color,
-            strokeStyle: '#ffffff',
-            lineWidth: 3
-        }
-    });
-});
-
-// 3. Add Boundaries (Floor/Walls)
-const ground = Bodies.rectangle(window.innerWidth / 2, window.innerHeight, window.innerWidth, 60, { isStatic: true });
-Composite.add(world, [...blocks, ground]);
-
-// 4. Add Mouse Interaction (The "Stitch" Grip)
-const mouse = Mouse.create(render.canvas);
-const mouseConstraint = MouseConstraint.create(engine, {
-    mouse: mouse,
-    constraint: { stiffness: 0.2, render: { visible: false } }
-});
-Composite.add(world, mouseConstraint);
 
 // --- Advanced UI Interactions ---
 
-// 1. Magnetic Buttons logic
-// Selected all buttons, and anchor tags that act like buttons.
-const buttons = document.querySelectorAll('button, .bg-primary');
-buttons.forEach(btn => {
-    btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        btn.style.transform = `translate(${x * 0.4}px, ${y * 0.4}px) scale(1.05)`;
-        btn.style.transition = 'transform 0.05s linear';
-    });
-    btn.addEventListener('mouseleave', () => {
-        btn.style.transform = '';
-        btn.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)';
-    });
-});
-
-// 2. 3D Hover Tilt Process Cards
+// 1. 3D Hover Tilt Process Cards
 const tiltCards = document.querySelectorAll('.tilt-card');
 tiltCards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
@@ -173,35 +103,7 @@ const setupInteractions = () => {
             const title = titleEl.innerText.trim();
 
             if (title === '3D Body Scanning') {
-                // 1. The Input: Physics Shatter Effect
-                const rect = card.getBoundingClientRect();
-                // Temporarily hide the card while physics handles the shatter
-                card.style.visibility = 'hidden';
-
-                // Create Matter.js fragments to simulate shatter
-                const cols = 5;
-                const rows = 5;
-                const fragW = rect.width / cols;
-                const fragH = rect.height / rows;
-
-                const fragments = [];
-                for (let i = 0; i < cols; i++) {
-                    for (let j = 0; j < rows; j++) {
-                        const frag = Bodies.rectangle(
-                            rect.left + (i * fragW) + fragW / 2,
-                            rect.top + (j * fragH) + fragH / 2 + window.scrollY,
-                            fragW, fragH,
-                            {
-                                restitution: 0.8,
-                                render: { fillStyle: '#1b180d', strokeStyle: '#ecb613', lineWidth: 1 }
-                            }
-                        );
-                        Matter.Body.setVelocity(frag, { x: (Math.random() - 0.5) * 15, y: -Math.random() * 10 });
-                        fragments.push(frag);
-                    }
-                }
-                Composite.add(world, fragments);
-
+                // 1. The Input: LiDAR Scanning sequence
                 setTimeout(() => {
                     openModal('LiDAR Scanning', '', '3d_rotation');
                     const modalBody = document.getElementById('modal-body');
@@ -246,7 +148,7 @@ const setupInteractions = () => {
                             </div>
                             <p id="scan-status-text" class="text-neutral-400 text-sm mt-2">Constructing 3D Wireframe...</p>
                             <div class="flex gap-4 mt-4 w-full">
-                                <button class="flex-1 bg-primary text-neutral-dark px-4 py-3 rounded-lg font-bold hover:scale-[1.02] transition-transform" onclick="closeModal(); document.querySelectorAll('.tilt-card')[0].style.visibility = 'visible'; window.showConfirmation();">Save Avatar Payload</button>
+                                <button class="flex-1 bg-primary text-neutral-dark px-4 py-3 rounded-lg font-bold hover:scale-[1.02] transition-transform" onclick="closeModal(); window.showConfirmation();">Save Avatar Payload</button>
                             </div>
                         </div>
                     `;
@@ -298,7 +200,7 @@ const setupInteractions = () => {
                         }
                     }, 3000); // 3 seconds matches the body-icon animate-spin CSS duration
 
-                }, 600); // Wait for shatter to look cool before popping modal
+                }, 100); // Fast open modal
 
             } else if (title === 'Virtual Fitting') {
                 // 2. The Real-Time Sim
@@ -456,25 +358,18 @@ window.showConfirmation = () => {
         <div class="m-item"><span>Back Length:</span> <strong>${measurementState.getDisplayValue('back').replace(' in', '"').replace(' cm', 'cm')}</strong></div>
     `;
 
-    // 3. Trigger the physics event + the modal pop!
+    // 3. Trigger the modal pop!
     confirmModal.classList.replace('modal-hidden', 'modal-active');
-
-    // Reverse Gravity!
-    world.gravity.y = -0.05;
 };
 
 // Bind actions on the new confirmation popup buttons
 document.getElementById('re-measure')?.addEventListener('click', () => {
     document.getElementById('confirmation-modal').classList.replace('modal-active', 'modal-hidden');
-    // Return gravity to normal
-    world.gravity.y = 0.5;
 });
 
 document.getElementById('confirm-final')?.addEventListener('click', () => {
     document.getElementById('confirmation-modal').classList.replace('modal-active', 'modal-hidden');
-    // Return gravity to normal
-    world.gravity.y = 0.5;
 
     // Optional: Could trigger another thread animation sequence here!
-    console.log("Measurements Stitched to Profile Successfully.");
+    console.log("Measurements Stitched to Database");
 });
