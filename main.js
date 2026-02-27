@@ -77,22 +77,6 @@ const setupInteractions = () => {
     closeBtn.addEventListener('click', closeModal);
     backdrop.addEventListener('click', closeModal);
 
-    // Bind Primary Buttons
-    document.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const text = btn.innerText.trim();
-            if (text === 'Book Appointment') {
-                openModal('Schedule Fitting', 'Our master tailors are available for exclusive scanning and consultation sessions. Select an available slot in our digital calendar.', 'calendar_month');
-            } else if (text === 'Explore Collection') {
-                openModal('The Archive', 'Access our exclusive runway pieces, detailed with complete material history and provenance.', 'auto_awesome');
-            } else if (text === 'Start Customizing') {
-                openModal('Digital Atelier', 'Enter the 3D customization suite. Choose your base drape, adjust measurements, and select premium digital fabrics.', 'design_services');
-            } else if (text === 'Request Access') {
-                e.preventDefault(); // intercept form submission
-                openModal('Waitlist Joined', 'Your email has been added to our exclusive priority queue. We will notify you when a bespoke slot opens.', 'check_circle');
-            }
-        });
-    });
 
     // Bind Process Cards
     document.querySelectorAll('.tilt-card').forEach(card => {
