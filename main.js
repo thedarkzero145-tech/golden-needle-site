@@ -443,8 +443,19 @@ document.getElementById('re-measure')?.addEventListener('click', () => {
 });
 
 document.getElementById('confirm-final')?.addEventListener('click', () => {
+    document.getElementById('confirmation-modal').style.display = 'none';
     document.getElementById('confirmation-modal').classList.replace('modal-active', 'modal-hidden');
-
-    // Optional: Could trigger another thread animation sequence here!
     console.log("Measurements Stitched to Database");
 });
+
+// User requested exact logic hook:
+const scanBtn = document.getElementById('start-scan');
+if (scanBtn) {
+    scanBtn.addEventListener('click', () => {
+        // Fallback or explicit trigger to simulate doing the scan then confirming
+        if (window.showConfirmation) {
+            window.showConfirmation();
+        }
+    });
+}
+
