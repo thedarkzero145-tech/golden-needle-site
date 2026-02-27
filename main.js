@@ -329,14 +329,7 @@ const setupInteractions = () => {
         });
     });
 
-    // Bind Nav Links
-    document.querySelectorAll('nav a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const title = link.innerText.trim();
-            openModal(`${title} Hub`, `Accessing the secure ${title} environment. Authenticating your identity...`, 'lock_open');
-        });
-    });
+
 
     // --- Expose interactions to global window for HTML inline buttons ---
     window.triggerScan = () => {
