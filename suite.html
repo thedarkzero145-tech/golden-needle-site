@@ -100,7 +100,7 @@
 
                 <div class="flex flex-col gap-5">
                     <!-- Item 1 (Active) -->
-                    <div class="flex justify-between items-start group cursor-pointer">
+                    <div class="flex justify-between items-start group cursor-pointer" onclick="loadHistory(this)">
                         <div>
                             <p class="font-bold text-sm group-hover:text-primary transition-colors">Oct 12, 2023</p>
                             <p class="text-xs text-neutral-400 mt-0.5">Full Body • 10:42 AM</p>
@@ -111,7 +111,7 @@
                     <div class="h-px w-full bg-gray-100"></div>
 
                     <!-- Item 2 -->
-                    <div class="flex justify-between items-start group cursor-pointer">
+                    <div class="flex justify-between items-start group cursor-pointer" onclick="loadHistory(this)">
                         <div>
                             <p
                                 class="font-bold text-sm text-neutral-500 group-hover:text-neutral-dark transition-colors">
@@ -123,7 +123,7 @@
                     <div class="h-px w-full bg-gray-100"></div>
 
                     <!-- Item 3 -->
-                    <div class="flex justify-between items-start group cursor-pointer">
+                    <div class="flex justify-between items-start group cursor-pointer" onclick="loadHistory(this)">
                         <div>
                             <p
                                 class="font-bold text-sm text-neutral-500 group-hover:text-neutral-dark transition-colors">
@@ -202,18 +202,20 @@
             <!-- Bottom Rotation Control Pill -->
             <div
                 class="absolute bottom-10 left-1/2 -translate-x-1/2 bg-white rounded-full shadow-lg border border-gray-100 flex items-center px-4 py-2 gap-4 z-20">
-                <button
+                <button onclick="rotateRelative(-90)"
                     class="w-8 h-8 rounded-full flex items-center justify-center text-neutral-400 hover:text-neutral-dark transition-colors">
                     <span class="material-symbols-outlined !text-[18px]">rotate_left</span>
                 </button>
 
                 <div class="flex gap-4 px-2 border-x border-gray-100 h-6 items-center text-xs font-medium">
-                    <button class="text-neutral-dark font-bold">Front</button>
-                    <button class="text-neutral-400 hover:text-neutral-dark transition-colors">Side</button>
-                    <button class="text-neutral-400 hover:text-neutral-dark transition-colors">Back</button>
+                    <button class="text-neutral-dark font-bold" onclick="rotateAvatar('front', this)">Front</button>
+                    <button class="text-neutral-400 hover:text-neutral-dark transition-colors"
+                        onclick="rotateAvatar('side', this)">Side</button>
+                    <button class="text-neutral-400 hover:text-neutral-dark transition-colors"
+                        onclick="rotateAvatar('back', this)">Back</button>
                 </div>
 
-                <button
+                <button onclick="rotateRelative(90)"
                     class="w-8 h-8 rounded-full flex items-center justify-center text-neutral-400 hover:text-neutral-dark transition-colors">
                     <span class="material-symbols-outlined !text-[18px]">rotate_right</span>
                 </button>
@@ -301,7 +303,7 @@
             <!-- Export button fixed at bottom of sidebar -->
             <div
                 class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-[#faf9f6] via-[#faf9f6] to-transparent pt-12">
-                <button
+                <button onclick="exportTechnicalSheet(this)"
                     class="w-full bg-white border border-gray-200 hover:border-neutral-dark text-neutral-dark h-12 flex items-center justify-center rounded-lg font-bold text-xs shadow-sm transition-colors">
                     Export Technical Sheet
                 </button>

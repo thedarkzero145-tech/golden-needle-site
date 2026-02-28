@@ -77,6 +77,106 @@ const setupInteractions = () => {
     closeBtn.addEventListener('click', closeModal);
     backdrop.addEventListener('click', closeModal);
 
+    window.startLidarScan = () => {
+        // 1. The Input: LiDAR Scanning sequence
+        setTimeout(() => {
+            openModal('LiDAR Scanning', '', '3d_rotation');
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div class="flex flex-col items-center gap-4 w-full relative">
+                    <h2 class="text-2xl font-bold text-primary tracking-widest uppercase">Standard Cyborg Integration</h2>
+                    <button id="unit-toggle" class="absolute top-1 right-2 text-xs font-mono bg-neutral-800 text-primary px-3 py-1 z-30 rounded border border-primary/50 hover:bg-neutral-700 shadow-md transition-colors hidden pointer-events-auto">Units: CM</button>
+                    <div class="relative w-full h-64 bg-neutral-900 rounded-lg overflow-hidden border border-primary/30 flex items-center justify-center">
+                        <!-- Laser Grid Background -->
+                        <div class="absolute inset-0 opacity-10 animate-pulse" style="background-image: linear-gradient(#ecb613 1px, transparent 1px), linear-gradient(90deg, #ecb613 1px, transparent 1px); background-size: 20px 20px;"></div>
+                        
+                        <div class="text-primary font-mono text-xs absolute top-4 left-4 flex flex-col gap-1 z-10">
+                            <span>> INITIALIZING LiDAR...</span>
+                            <span id="scan-prog-1">> ACQUIRING MESH DATA...</span>
+                            <span id="scan-prog-2" class="animate-pulse">> POINTS: 2,540,192</span>
+                        </div>
+                        
+                        <!-- 3D Wireframe Mock -->
+                        <div class="w-32 h-48 border-2 border-primary/50 relative flex items-center justify-center perspective-[500px] z-10 bg-black/50 backdrop-blur-sm rounded-lg shadow-2xl">
+                            <div class="absolute inset-0 border border-primary/30 rounded-lg animate-pulse shadow-[0_0_20px_#ecb613]"></div>
+                            <span id="body-icon" class="material-symbols-outlined text-6xl text-primary animate-spin" style="animation-duration: 3s; animation-iteration-count: 1;">accessibility_new</span>
+                            
+                            <!-- Interactive Measurements Overlay -->
+                            <div id="measurements-overlay" class="absolute inset-0 z-20 pointer-events-none opacity-0 transition-opacity duration-1000">
+                                <!-- Shoulder -->
+                                <div class="measure-line w-[80%] h-[2px] top-[20%] left-[10%]"></div>
+                                <div class="measure-label" id="lbl-shoulder" style="top:-2%; left:50%; transform:translateX(-50%)"></div>
+                                
+                                <!-- Waist (Ring) -->
+                                <div class="measure-ring w-[60%] h-[30px] top-[40%] left-[20%]"></div>
+                                <div class="measure-label" id="lbl-waist" style="top:45%; left:-50%;"></div>
+                                
+                                <!-- Arm -->
+                                <div class="measure-line w-[2px] h-[35%] top-[25%] left-[85%]"></div>
+                                <div class="measure-label" id="lbl-arm" style="top:35%; left:95%;"></div>
+                                
+                                <!-- Back -->
+                                <div class="measure-line w-[2px] h-[50%] top-[20%] left-[50%] opacity-50"></div>
+                                <div class="measure-label" id="lbl-back" style="top:45%; left:55%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="scan-status-text" class="text-neutral-400 text-sm mt-2">Constructing 3D Wireframe...</p>
+                    <div class="flex gap-4 mt-4 w-full">
+                        <button class="flex-1 bg-primary text-neutral-dark px-4 py-3 rounded-lg font-bold hover:scale-[1.02] transition-transform" onclick="closeModal(); window.showConfirmation();">Save Avatar Payload</button>
+                    </div>
+                </div>
+            `;
+
+            // Handle the timing logic to "snap" the measurements at the end of the scan!
+            setTimeout(() => {
+                const overlay = document.getElementById('measurements-overlay');
+                const toggle = document.getElementById('unit-toggle');
+                const statusTxt = document.getElementById('scan-status-text');
+                const prog1 = document.getElementById('scan-prog-1');
+                const prog2 = document.getElementById('scan-prog-2');
+                const icon = document.getElementById('body-icon');
+
+                if (icon) {
+                    icon.style.animationIterationCount = '0'; // stop spinning
+                }
+
+                if (prog1) prog1.innerText = '> MESH ACQUIRED & LOCKED';
+                if (prog2) {
+                    prog2.classList.remove('animate-pulse');
+                    prog2.innerText = '> MEASUREMENTS EXTRACTED';
+                }
+                if (statusTxt) statusTxt.innerText = "3D Wireframe constructed. High-fidelity measurements mapped onto avatar.";
+
+                if (overlay) overlay.classList.replace('opacity-0', 'opacity-100');
+                if (toggle) toggle.classList.remove('hidden');
+
+                const updateLabels = () => {
+                    const lblS = document.getElementById('lbl-shoulder');
+                    const lblW = document.getElementById('lbl-waist');
+                    const lblA = document.getElementById('lbl-arm');
+                    const lblB = document.getElementById('lbl-back');
+
+                    if (lblS) { lblS.innerText = 'SH: ' + measurementState.getDisplayValue('shoulder'); lblS.style.transform = `translateX(-50%) scale(1.1)`; setTimeout(() => lblS.style.transform = 'translateX(-50%) scale(1)', 150); }
+                    if (lblW) { lblW.innerText = 'W: ' + measurementState.getDisplayValue('waist'); lblW.style.transform = `scale(1.1)`; setTimeout(() => lblW.style.transform = 'scale(1)', 150); }
+                    if (lblA) { lblA.innerText = 'A: ' + measurementState.getDisplayValue('arm'); lblA.style.transform = `scale(1.1)`; setTimeout(() => lblA.style.transform = 'scale(1)', 150); }
+                    if (lblB) { lblB.innerText = 'B: ' + measurementState.getDisplayValue('back'); lblB.style.transform = `scale(1.1)`; setTimeout(() => lblB.style.transform = 'scale(1)', 150); }
+
+                    if (toggle) toggle.innerText = 'Units: ' + measurementState.unit.toUpperCase();
+                };
+
+                updateLabels();
+
+                if (toggle) {
+                    toggle.onclick = () => {
+                        measurementState.toggleUnit();
+                        updateLabels();
+                    };
+                }
+            }, 3000); // 3 seconds matches the body-icon animate-spin CSS duration
+
+        }, 100); // Fast open modal
+    };
 
     // Bind Process Cards
     document.querySelectorAll('.tilt-card').forEach(card => {
@@ -87,105 +187,7 @@ const setupInteractions = () => {
             const title = titleEl.innerText.trim();
 
             if (title === '3D Body Scanning') {
-                // 1. The Input: LiDAR Scanning sequence
-                setTimeout(() => {
-                    openModal('LiDAR Scanning', '', '3d_rotation');
-                    const modalBody = document.getElementById('modal-body');
-                    modalBody.innerHTML = `
-                        <div class="flex flex-col items-center gap-4 w-full relative">
-                            <h2 class="text-2xl font-bold text-primary tracking-widest uppercase">Standard Cyborg Integration</h2>
-                            <button id="unit-toggle" class="absolute top-1 right-2 text-xs font-mono bg-neutral-800 text-primary px-3 py-1 z-30 rounded border border-primary/50 hover:bg-neutral-700 shadow-md transition-colors hidden pointer-events-auto">Units: CM</button>
-                            <div class="relative w-full h-64 bg-neutral-900 rounded-lg overflow-hidden border border-primary/30 flex items-center justify-center">
-                                <!-- Laser Grid Background -->
-                                <div class="absolute inset-0 opacity-10 animate-pulse" style="background-image: linear-gradient(#ecb613 1px, transparent 1px), linear-gradient(90deg, #ecb613 1px, transparent 1px); background-size: 20px 20px;"></div>
-                                
-                                <div class="text-primary font-mono text-xs absolute top-4 left-4 flex flex-col gap-1 z-10">
-                                    <span>> INITIALIZING LiDAR...</span>
-                                    <span id="scan-prog-1">> ACQUIRING MESH DATA...</span>
-                                    <span id="scan-prog-2" class="animate-pulse">> POINTS: 2,540,192</span>
-                                </div>
-                                
-                                <!-- 3D Wireframe Mock -->
-                                <div class="w-32 h-48 border-2 border-primary/50 relative flex items-center justify-center perspective-[500px] z-10 bg-black/50 backdrop-blur-sm rounded-lg shadow-2xl">
-                                    <div class="absolute inset-0 border border-primary/30 rounded-lg animate-pulse shadow-[0_0_20px_#ecb613]"></div>
-                                    <span id="body-icon" class="material-symbols-outlined text-6xl text-primary animate-spin" style="animation-duration: 3s; animation-iteration-count: 1;">accessibility_new</span>
-                                    
-                                    <!-- Interactive Measurements Overlay -->
-                                    <div id="measurements-overlay" class="absolute inset-0 z-20 pointer-events-none opacity-0 transition-opacity duration-1000">
-                                        <!-- Shoulder -->
-                                        <div class="measure-line w-[80%] h-[2px] top-[20%] left-[10%]"></div>
-                                        <div class="measure-label" id="lbl-shoulder" style="top:-2%; left:50%; transform:translateX(-50%)"></div>
-                                        
-                                        <!-- Waist (Ring) -->
-                                        <div class="measure-ring w-[60%] h-[30px] top-[40%] left-[20%]"></div>
-                                        <div class="measure-label" id="lbl-waist" style="top:45%; left:-50%;"></div>
-                                        
-                                        <!-- Arm -->
-                                        <div class="measure-line w-[2px] h-[35%] top-[25%] left-[85%]"></div>
-                                        <div class="measure-label" id="lbl-arm" style="top:35%; left:95%;"></div>
-                                        
-                                        <!-- Back -->
-                                        <div class="measure-line w-[2px] h-[50%] top-[20%] left-[50%] opacity-50"></div>
-                                        <div class="measure-label" id="lbl-back" style="top:45%; left:55%;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p id="scan-status-text" class="text-neutral-400 text-sm mt-2">Constructing 3D Wireframe...</p>
-                            <div class="flex gap-4 mt-4 w-full">
-                                <button class="flex-1 bg-primary text-neutral-dark px-4 py-3 rounded-lg font-bold hover:scale-[1.02] transition-transform" onclick="closeModal(); window.showConfirmation();">Save Avatar Payload</button>
-                            </div>
-                        </div>
-                    `;
-
-                    // Handle the timing logic to "snap" the measurements at the end of the scan!
-                    setTimeout(() => {
-                        const overlay = document.getElementById('measurements-overlay');
-                        const toggle = document.getElementById('unit-toggle');
-                        const statusTxt = document.getElementById('scan-status-text');
-                        const prog1 = document.getElementById('scan-prog-1');
-                        const prog2 = document.getElementById('scan-prog-2');
-                        const icon = document.getElementById('body-icon');
-
-                        if (icon) {
-                            icon.style.animationIterationCount = '0'; // stop spinning
-                        }
-
-                        if (prog1) prog1.innerText = '> MESH ACQUIRED & LOCKED';
-                        if (prog2) {
-                            prog2.classList.remove('animate-pulse');
-                            prog2.innerText = '> MEASUREMENTS EXTRACTED';
-                        }
-                        if (statusTxt) statusTxt.innerText = "3D Wireframe constructed. High-fidelity measurements mapped onto avatar.";
-
-                        if (overlay) overlay.classList.replace('opacity-0', 'opacity-100');
-                        if (toggle) toggle.classList.remove('hidden');
-
-                        const updateLabels = () => {
-                            const lblS = document.getElementById('lbl-shoulder');
-                            const lblW = document.getElementById('lbl-waist');
-                            const lblA = document.getElementById('lbl-arm');
-                            const lblB = document.getElementById('lbl-back');
-
-                            if (lblS) { lblS.innerText = 'SH: ' + measurementState.getDisplayValue('shoulder'); lblS.style.transform = `translateX(-50%) scale(1.1)`; setTimeout(() => lblS.style.transform = 'translateX(-50%) scale(1)', 150); }
-                            if (lblW) { lblW.innerText = 'W: ' + measurementState.getDisplayValue('waist'); lblW.style.transform = `scale(1.1)`; setTimeout(() => lblW.style.transform = 'scale(1)', 150); }
-                            if (lblA) { lblA.innerText = 'A: ' + measurementState.getDisplayValue('arm'); lblA.style.transform = `scale(1.1)`; setTimeout(() => lblA.style.transform = 'scale(1)', 150); }
-                            if (lblB) { lblB.innerText = 'B: ' + measurementState.getDisplayValue('back'); lblB.style.transform = `scale(1.1)`; setTimeout(() => lblB.style.transform = 'scale(1)', 150); }
-
-                            if (toggle) toggle.innerText = 'Units: ' + measurementState.unit.toUpperCase();
-                        };
-
-                        updateLabels();
-
-                        if (toggle) {
-                            toggle.onclick = () => {
-                                measurementState.toggleUnit();
-                                updateLabels();
-                            };
-                        }
-                    }, 3000); // 3 seconds matches the body-icon animate-spin CSS duration
-
-                }, 100); // Fast open modal
-
+                window.startLidarScan();
             } else if (title === 'Virtual Fitting') {
                 // 2. The Real-Time Sim
                 openModal(title, '', 'view_in_ar');
@@ -452,10 +454,87 @@ document.getElementById('confirm-final')?.addEventListener('click', () => {
 const scanBtn = document.getElementById('start-scan');
 if (scanBtn) {
     scanBtn.addEventListener('click', () => {
-        // Fallback or explicit trigger to simulate doing the scan then confirming
-        if (window.showConfirmation) {
+        if (window.startLidarScan) {
+            window.startLidarScan();
+        } else if (window.showConfirmation) {
             window.showConfirmation();
         }
     });
 }
 
+// Additional Suite Interactive Features
+let currentRotation = 0;
+window.rotateAvatar = (view, btn) => {
+    const buttons = btn.parentElement.querySelectorAll('button');
+    buttons.forEach(b => {
+        b.className = "text-neutral-400 hover:text-neutral-dark transition-colors";
+    });
+    btn.className = "text-neutral-dark font-bold";
+
+    const imgContainer = document.querySelector('.relative.w-\\[340px\\], .md\\:w-\\[400px\\]');
+    const img = imgContainer ? imgContainer.querySelector('img') : null;
+
+    if (img) {
+        img.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        if (view === 'front') {
+            currentRotation = 0;
+        } else if (view === 'side') {
+            currentRotation = 90;
+        } else if (view === 'back') {
+            currentRotation = 180;
+        }
+        img.style.transform = `rotateY(${currentRotation}deg)`;
+    }
+};
+
+window.rotateRelative = (deg) => {
+    currentRotation += deg;
+    const imgContainer = document.querySelector('.relative.w-\\[340px\\], .md\\:w-\\[400px\\]');
+    const img = imgContainer ? imgContainer.querySelector('img') : null;
+    if (img) {
+        img.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        img.style.transform = `rotateY(${currentRotation}deg)`;
+    }
+};
+
+window.loadHistory = (el) => {
+    // Dim all dots
+    const allDots = document.querySelectorAll('aside:first-child .rounded-full');
+    allDots.forEach(dot => {
+        // filter out buttons or icons
+        if (dot.classList.contains('w-2\\.5') || dot.classList.contains('w-2')) {
+            dot.className = "w-2 h-2 rounded-full bg-neutral-200 mt-1";
+        }
+    });
+
+    const targetDot = el.querySelector('.rounded-full');
+    if (targetDot) {
+        targetDot.className = "w-2.5 h-2.5 rounded-full bg-green-400 mt-1 shadow-[0_0_8px_rgba(74,222,128,0.5)]";
+    }
+
+    // Flash the analysis metrics
+    const measures = document.querySelectorAll('aside:last-child .font-mono, main h3');
+    measures.forEach(m => {
+        m.classList.remove('animate-pulse');
+        void m.offsetWidth;
+        m.classList.add('animate-pulse');
+        m.style.color = '#ecb613';
+        setTimeout(() => m.style.color = '', 400);
+    });
+};
+
+window.exportTechnicalSheet = (btn) => {
+    btn.innerHTML = `<span class="material-symbols-outlined animate-spin mr-2">refresh</span> Processing...`;
+    setTimeout(() => {
+        btn.innerHTML = `<span class="material-symbols-outlined mr-2">check</span> Exported`;
+        btn.classList.replace('text-neutral-dark', 'text-white');
+        btn.classList.remove('bg-white', 'border', 'border-gray-200', 'hover:border-neutral-dark');
+        btn.classList.add('bg-primary');
+        setTimeout(() => {
+            btn.innerHTML = `Export Technical Sheet`;
+            btn.classList.replace('text-white', 'text-neutral-dark');
+            btn.classList.remove('bg-primary');
+            btn.classList.add('bg-white', 'border', 'border-gray-200', 'hover:border-neutral-dark');
+        }, 3000);
+    }, 1500);
+};
