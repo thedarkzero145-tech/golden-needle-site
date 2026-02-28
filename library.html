@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Fabric Library - Digital Atelier</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#faf9f6",
+                        "background-dark": "#221d10",
+                        "neutral-dark": "#1b180d",
+                        "neutral-medium": "#9a864c",
+                        "neutral-light": "#f3f0e7",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Space Grotesk", "sans-serif"]
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #f0f0f0 1px, transparent 1px), linear-gradient(to bottom, #f0f0f0 1px, transparent 1px)"
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom Checkbox styles */
+        .custom-checkbox {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            background-color: white;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .custom-checkbox:checked {
+            background-color: #ecb613;
+            border-color: #ecb613;
+        }
+
+        .custom-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1px;
+            width: 4px;
+            height: 9px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        /* Custom Radio styles */
+        .custom-radio {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 50%;
+            background-color: white;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .custom-radio:checked {
+            border-color: #ecb613;
+            border-width: 2px;
+        }
+
+        .custom-radio:checked::after {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            width: 6px;
+            height: 6px;
+            background-color: #ecb613;
+            border-radius: 50%;
+        }
+
+        /* Hide scrollbar for cleaner look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+    </style>
+</head>
+
+<body class="bg-[#faf9f6] text-neutral-dark font-display antialiased h-screen overflow-hidden flex flex-col">
+
+    <!-- Header -->
+    <header
+        class="flex-none h-20 flex items-center justify-between px-6 lg:px-10 bg-[#faf9f6] border-b border-gray-200 z-50">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 text-neutral-dark hover:opacity-80 transition-opacity">
+            <div class="text-primary">
+                <span class="material-symbols-outlined !text-[24px]">stat_3</span>
+            </div>
+            <h2 class="text-lg font-bold leading-tight tracking-tight">Digital Atelier</h2>
+        </a>
+
+        <!-- Center Nav -->
+        <nav class="hidden md:flex items-center gap-8 h-full">
+            <a class="text-neutral-500 hover:text-neutral-dark transition-colors text-sm font-medium"
+                href="index.html">Collections</a>
+            <div class="h-full flex items-center relative">
+                <a class="text-neutral-dark text-sm font-bold" href="library.html">Fabric Library</a>
+                <div class="absolute bottom-0 left-0 w-full h-[3px] bg-primary rounded-t-sm"></div>
+            </div>
+            <a class="text-neutral-500 hover:text-neutral-dark transition-colors text-sm font-medium"
+                href="suite.html">Measurement Suite</a>
+            <a class="text-neutral-500 hover:text-neutral-dark transition-colors text-sm font-medium"
+                href="#">Account</a>
+        </nav>
+
+        <!-- Right Controls -->
+        <div class="flex items-center gap-3">
+            <button
+                class="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-700 hover:bg-neutral-200 transition-colors">
+                <span class="material-symbols-outlined !text-[20px]">shopping_bag</span>
+            </button>
+            <button
+                class="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-700 hover:bg-neutral-200 transition-colors">
+                <span class="material-symbols-outlined !text-[20px]">person</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="flex flex-1 h-[calc(100vh-80px)] overflow-hidden">
+
+        <!-- Left Sidebar: Filters -->
+        <aside
+            class="w-[260px] lg:w-[280px] h-full bg-[#faf9f6] border-r border-gray-200 flex flex-col pt-8 pb-6 justify-between flex-shrink-0">
+            <div class="px-6 overflow-y-auto no-scrollbar flex-1">
+                <h1 class="text-2xl font-bold tracking-tight mb-1">Library</h1>
+                <p class="text-[9px] font-bold tracking-[0.15em] text-neutral-500 uppercase mb-8">CURATED SELECTION</p>
+
+                <!-- Composition Filter -->
+                <div class="mb-8">
+                    <h3 class="text-[10px] font-bold tracking-[0.1em] text-neutral-400 uppercase mb-4">COMPOSITION</h3>
+                    <div class="flex flex-col gap-3">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="custom-checkbox" checked>
+                            <span
+                                class="text-sm text-neutral-600 group-hover:text-neutral-dark transition-colors">Merino
+                                Wool</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="custom-checkbox">
+                            <span
+                                class="text-sm text-neutral-600 group-hover:text-neutral-dark transition-colors">Cashmere
+                                Blend</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="custom-checkbox">
+                            <span class="text-sm text-neutral-600 group-hover:text-neutral-dark transition-colors">Raw
+                                Silk</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="custom-checkbox">
+                            <span
+                                class="text-sm text-neutral-600 group-hover:text-neutral-dark transition-colors">Linen</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="custom-checkbox">
+                            <span
+                                class="text-sm text-neutral-600 group-hover:text-neutral-dark transition-colors">Vicuña</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Season Filter -->
+                <div class="mb-8">
+                    <h3 class="text-[10px] font-bold tracking-[0.1em] text-neutral-400 uppercase mb-4">SEASON</h3>
+                    <div class="flex flex-col gap-3">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="radio" name="season" class="custom-radio">
+                            <span class="text-sm text-neutral-600 group-hover:text-neutral-dark transition-colors">All
+                                Seasons</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="radio" name="season" class="custom-radio" checked>
+                            <span
+                                class="text-sm text-neutral-600 group-hover:text-neutral-dark transition-colors">Autumn
+                                / Winter</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="radio" name="season" class="custom-radio">
+                            <span
+                                class="text-sm text-neutral-600 group-hover:text-neutral-dark transition-colors">Spring
+                                / Summer</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Mill Filter -->
+                <div class="mb-8">
+                    <h3 class="text-[10px] font-bold tracking-[0.1em] text-neutral-400 uppercase mb-4">MILL</h3>
+                    <div class="relative">
+                        <select
+                            class="w-full appearance-none bg-white border border-gray-200 text-sm text-neutral-600 rounded drop-shadow-sm px-3 py-2 cursor-pointer focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+                            <option>Loro Piana</option>
+                            <option>Fox Brothers</option>
+                            <option>Scabal</option>
+                            <option>Solbiati</option>
+                            <option>Dormeuil</option>
+                        </select>
+                        <span
+                            class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none text-[18px]">expand_more</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-6 mt-4">
+                <button
+                    class="w-full h-10 border border-neutral-300 rounded text-sm font-semibold text-neutral-dark hover:bg-neutral-100 transition-colors">
+                    Reset Filters
+                </button>
+            </div>
+        </aside>
+
+        <!-- Center Catalog -->
+        <main class="flex-1 bg-white relative overflow-y-auto no-scrollbar">
+            <!-- Grid Background -->
+            <div class="absolute inset-0 bg-grid-pattern z-0" style="background-size: 30px 30px; opacity: 0.8;"></div>
+
+            <div class="relative z-10 p-8 max-w-5xl mx-auto min-h-full">
+                <!-- Toolbar -->
+                <div
+                    class="flex items-center justify-between mb-8 pb-4 border-b border-gray-100 bg-white/80 backdrop-blur-sm sticky top-0 px-2 rounded-b-lg">
+                    <span class="text-sm font-medium text-neutral-500">Showing 124 Fabrics</span>
+                    <div class="flex items-center gap-6">
+                        <div
+                            class="flex items-center gap-2 text-[10px] font-bold tracking-[0.1em] text-neutral-400 uppercase">
+                            SORT BY:
+                            <span class="text-neutral-dark cursor-pointer flex items-center gap-1">Newest Arrivals <span
+                                    class="material-symbols-outlined text-[14px]">expand_more</span></span>
+                        </div>
+                        <div class="flex gap-2 text-neutral-400">
+                            <span
+                                class="material-symbols-outlined cursor-pointer hover:text-neutral-dark text-primary transition-colors">grid_view</span>
+                            <span
+                                class="material-symbols-outlined cursor-pointer hover:text-neutral-dark transition-colors">view_list</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fabric Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+                    <!-- Card 1 (Selected) -->
+                    <div
+                        class="bg-white rounded-[16px] overflow-hidden border border-primary shadow-[0_4px_20px_rgba(236,182,19,0.15)] cursor-pointer group relative flex flex-col">
+                        <div
+                            class="absolute top-3 right-3 w-6 h-6 bg-primary rounded-full flex items-center justify-center z-10 text-white shadow-sm">
+                            <span class="material-symbols-outlined text-[14px]">check</span>
+                        </div>
+                        <div class="h-44 w-full bg-gray-100 relative overflow-hidden">
+                            <img src="/midnight_twill_fabric_1772210697571.png"
+                                class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 group-hover:scale-105 transition-transform duration-700"
+                                alt="Midnight Twill" />
+                        </div>
+                        <div class="p-4 flex flex-col flex-1">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3
+                                    class="font-bold text-lg text-neutral-dark leading-tight group-hover:text-primary transition-colors">
+                                    Midnight<br>Twill</h3>
+                                <span
+                                    class="text-[10px] font-medium px-2 py-0.5 border border-gray-200 rounded text-neutral-500 bg-gray-50">S130s</span>
+                            </div>
+                            <p class="text-[11px] text-neutral-500 mt-2 mb-4 leading-relaxed">Loro Piana •<br>Australis
+                                Collection</p>
+                            <div class="mt-auto flex items-center gap-3 text-[10px] text-neutral-400 font-medium">
+                                <span class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-gray-300"></span> 260g/m</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-gray-300"></span> 100%<br>Wool</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div
+                        class="bg-white rounded-[16px] overflow-hidden border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md transition-shadow cursor-pointer group flex flex-col">
+                        <div class="h-44 w-full bg-gray-100 relative overflow-hidden">
+                            <img src="/sandstone_linen_fabric_1772210711628.png"
+                                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                alt="Sandstone Linen" />
+                        </div>
+                        <div class="p-4 flex flex-col flex-1">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3
+                                    class="font-bold text-lg text-neutral-dark leading-tight group-hover:text-primary transition-colors">
+                                    Sandstone<br>Linen</h3>
+                                <span
+                                    class="text-[10px] font-medium px-2 py-0.5 border border-gray-200 rounded text-neutral-500 bg-gray-50">Natural</span>
+                            </div>
+                            <p class="text-[11px] text-neutral-500 mt-2 mb-4 leading-relaxed">Solbiati • Art Du<br>Lin
+                            </p>
+                            <div class="mt-auto flex items-center gap-3 text-[10px] text-neutral-400 font-medium">
+                                <span class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-gray-300"></span> 320g/m</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-gray-300"></span> 100%<br>Linen</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div
+                        class="bg-white rounded-[16px] overflow-hidden border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md transition-shadow cursor-pointer group flex flex-col">
+                        <div class="h-44 w-full bg-gray-100 relative overflow-hidden">
+                            <img src="/imperial_raw_silk_fabric_1772210728746.png"
+                                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                alt="Imperial Raw Silk" />
+                        </div>
+                        <div class="p-4 flex flex-col flex-1">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3
+                                    class="font-bold text-lg text-neutral-dark leading-tight group-hover:text-primary transition-colors">
+                                    Imperial<br>Raw Silk</h3>
+                                <span
+                                    class="text-[10px] font-medium px-2 py-0.5 border border-gray-200 rounded text-neutral-500 bg-gray-50">Slub</span>
+                            </div>
+                            <p class="text-[11px] text-neutral-500 mt-2 mb-4 leading-relaxed">Dormeuil • Silk<br>stream
+                            </p>
+                            <div class="mt-auto flex items-center gap-3 text-[10px] text-neutral-400 font-medium">
+                                <span class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-gray-300"></span> 240g/m</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-gray-300"></span> Silk<br>Blend</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div
+                        class="bg-white rounded-[16px] overflow-hidden border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md transition-shadow cursor-pointer group flex flex-col">
+                        <div class="h-44 w-full bg-gray-100 relative overflow-hidden">
+                            <img src="/charcoal_flannel_shirt_1772210744750.png"
+                                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 sepia-[0.3]"
+                                alt="Charcoal Flannel" />
+                        </div>
+                        <div class="p-4 flex flex-col flex-1">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3
+                                    class="font-bold text-lg text-neutral-dark leading-tight group-hover:text-primary transition-colors">
+                                    Charcoal<br>Flannel</h3>
+                                <span
+                                    class="text-[10px] font-medium px-2 py-0.5 border border-gray-200 rounded text-neutral-500 bg-gray-50">S110s</span>
+                            </div>
+                            <p class="text-[11px] text-neutral-500 mt-2 mb-4 leading-relaxed">Fox Brothers •<br>Classic
+                                Flannel</p>
+                            <div class="mt-auto flex items-center gap-3 text-[10px] text-neutral-400 font-medium">
+                                <span class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-gray-300"></span> 380g/m</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-gray-300"></span> 100%<br>Wool</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div
+                        class="bg-white rounded-[16px] overflow-hidden border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md transition-shadow cursor-pointer group flex flex-col">
+                        <div class="h-44 w-full bg-gray-100 relative overflow-hidden">
+                            <img src="/royal_prince_of_wales_1772210763947.png"
+                                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                alt="Royal Prince of Wales" />
+                        </div>
+                        <div class="p-4 flex flex-col flex-1">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3
+                                    class="font-bold text-lg text-neutral-dark leading-tight group-hover:text-primary transition-colors">
+                                    Royal<br>Prince<br>of Wales</h3>
+                                <span
+                                    class="text-[10px] font-medium px-2 py-0.5 border border-gray-200 rounded text-neutral-500 bg-gray-50">S150s</span>
+                            </div>
+                            <p class="text-[11px] text-neutral-500 mt-2 mb-4 leading-relaxed">Scabal • Royal</p>
+                            <div class="mt-auto flex items-center gap-3 text-[10px] text-neutral-400 font-medium">
+                                <span class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-gray-300"></span> 280g/m</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-gray-300"></span> Wool/Cashmere</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div
+                        class="bg-white rounded-[16px] overflow-hidden border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md transition-shadow cursor-pointer group flex flex-col">
+                        <div class="h-44 w-full bg-gray-100 relative overflow-hidden">
+                            <img src="/andes_gold_fabric_1772210781310.png"
+                                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 mix-blend-multiply opacity-90"
+                                alt="Andes Gold" />
+                        </div>
+                        <div class="p-4 flex flex-col flex-1">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3
+                                    class="font-bold text-lg text-neutral-dark leading-tight group-hover:text-primary transition-colors">
+                                    Andes<br>Gold</h3>
+                                <span
+                                    class="text-[10px] font-medium px-2 py-0.5 border border-gray-200 rounded text-neutral-500 bg-gray-50">Rare</span>
+                            </div>
+                            <p class="text-[11px] text-neutral-500 mt-2 mb-4 leading-relaxed">Loro Piana •<br>Vicuña</p>
+                            <div class="mt-auto flex items-center gap-3 text-[10px] text-neutral-400 font-medium">
+                                <span class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-gray-300"></span> 290g/m</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-gray-300"></span> 100%<br>Vicuña</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar: Specification -->
+        <aside class="w-[320px] h-full bg-white border-l border-gray-200 flex flex-col flex-shrink-0 relative">
+            <div
+                class="absolute top-12 -left-[3px] w-1 h-8 bg-primary z-10 rounded-r border border-primary/20 shadow-sm">
+            </div>
+
+            <div class="flex-1 overflow-y-auto no-scrollbar p-6 pt-8 pb-32">
+
+                <div class="flex items-center gap-2 mb-4">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="text-primary opacity-80"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="20" x2="12" y2="10"></line>
+                        <line x1="18" y1="20" x2="18" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="16"></line>
+                    </svg>
+                    <span class="text-xs font-bold tracking-widest uppercase">Specification</span>
+                </div>
+
+                <h2 class="text-3xl font-bold tracking-tight text-neutral-dark mb-1">Midnight Twill</h2>
+                <p class="text-xs text-neutral-500 mb-6 font-medium">Ref: LP-AUS-8492</p>
+
+                <!-- Stats Box -->
+                <div class="border border-gray-100 rounded-[16px] p-5 shadow-sm mb-8 relative bg-white">
+                    <div class="absolute right-4 top-4 text-gray-200 opacity-50 transform rotate-12">
+                        <span class="material-symbols-outlined text-4xl">water_drop</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-6 gap-x-2 relative z-10">
+                        <div>
+                            <div class="text-[9px] text-neutral-400 font-bold uppercase tracking-wider mb-1">Weight
+                                (GSM)</div>
+                            <div class="text-lg font-bold">260 <span
+                                    class="text-xs text-neutral-400 font-normal">g</span></div>
+                        </div>
+                        <div>
+                            <div class="text-[9px] text-neutral-400 font-bold uppercase tracking-wider mb-2">
+                                Breathability</div>
+                            <div class="flex gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-gray-200"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-gray-200"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="text-[9px] text-neutral-400 font-bold uppercase tracking-wider mb-1">Weave</div>
+                            <div class="text-sm font-bold">2/2 Twill</div>
+                        </div>
+                        <div>
+                            <div class="text-[9px] text-neutral-400 font-bold uppercase tracking-wider mb-1">Micron
+                            </div>
+                            <div class="text-sm font-bold">17.5μ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Origin -->
+                <div class="mb-8">
+                    <h3 class="text-[10px] font-bold tracking-[0.1em] text-neutral-400 uppercase mb-4">ORIGIN &
+                        PROVENANCE</h3>
+                    <div class="relative pl-3 border-l-2 border-gray-100 flex flex-col gap-6 ml-2">
+                        <div class="relative">
+                            <span
+                                class="absolute -left-[19px] top-1.5 w-3 h-3 bg-white border-2 border-gray-300 rounded-full"></span>
+                            <div class="text-sm font-bold text-neutral-dark">Loro Piana Mill</div>
+                            <div class="text-xs text-neutral-500">Quarona, Italy</div>
+                        </div>
+                        <div class="relative">
+                            <span
+                                class="absolute -left-[19px] top-1.5 w-3 h-3 bg-white border-2 border-gray-300 rounded-full"></span>
+                            <div class="text-sm font-bold text-neutral-dark">Merino Sheep</div>
+                            <div class="text-xs text-neutral-500">New South Wales, Australia</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommended For -->
+                <div class="mb-8">
+                    <h3 class="text-[10px] font-bold tracking-[0.1em] text-neutral-400 uppercase mb-4">RECOMMENDED FOR
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="px-3 py-1.5 border border-gray-200 rounded text-xs text-neutral-600 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.02)]">Business
+                            Suits</span>
+                        <span
+                            class="px-3 py-1.5 border border-gray-200 rounded text-xs text-neutral-600 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.02)]">Formal
+                            Events</span>
+                        <span
+                            class="px-3 py-1.5 border border-gray-200 rounded text-xs text-neutral-600 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.02)]">Four
+                            Season</span>
+                    </div>
+                </div>
+
+                <!-- Stylist Note -->
+                <div
+                    class="bg-[#fcf8ef] border border-[#f0e4c6] rounded-[8px] p-4 flex gap-3 shadow-[0_2px_10px_rgba(236,182,19,0.05)]">
+                    <span class="material-symbols-outlined text-primary text-[16px] mt-0.5"
+                        style="font-variation-settings: 'FILL' 1;">star</span>
+                    <div>
+                        <div class="text-[10px] font-bold tracking-widest text-primary uppercase mb-1 drop-shadow-sm">
+                            STYLIST NOTE</div>
+                        <p class="text-xs text-neutral-600 leading-relaxed">Excellent drape and recovery. The midnight
+                            blue tone has exceptional depth under artificial light.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Absolute Bottom Action Buttons -->
+            <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-6 flex gap-3">
+                <button
+                    class="flex-1 bg-white border border-gray-200 hover:border-gray-300 text-neutral-dark text-xs font-bold py-3.5 px-2 rounded tracking-wide shadow-sm hover:shadow transition-all">Request
+                    Swatch</button>
+                <button
+                    class="flex-1 bg-[#1b180d] hover:bg-black text-white text-xs font-bold py-3.5 px-2 rounded tracking-wide shadow-md transition-all">Select
+                    Fabric</button>
+            </div>
+        </aside>
+
+    </div>
+
+</body>
+
+</html>
