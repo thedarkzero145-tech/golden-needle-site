@@ -1,5 +1,5 @@
-# 🧵 The Golden Needle: Gravity-Defying Couture
-A high-end sewing and garment business site concept built with **Vite + Matter.js**.
+# 🧵 Digital Atelier: Precision in Chaos
+A high-end sewing and garment business site concept built with **Vite + TailwindCSS + JavaScript**.
 
 ## 🚀 The Concept
 The site mimics the chaotic yet structured nature of a tailor's workshop. 
