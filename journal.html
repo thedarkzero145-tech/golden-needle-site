@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Journal - Digital Atelier</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#faf9f6",
+                        "background-dark": "#221d10",
+                        "neutral-dark": "#1b180d",
+                        "neutral-medium": "#9a864c",
+                        "neutral-light": "#f3f0e7",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Space Grotesk", "sans-serif"]
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #e5e5e5 1px, transparent 1px), linear-gradient(to bottom, #e5e5e5 1px, transparent 1px)"
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .journal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            align-items: start;
+        }
+    </style>
+</head>
+
+<body class="bg-[#faf9f6] text-neutral-dark font-display antialiased relative">
+
+    <!-- Background Grid Pattern -->
+    <div class="fixed inset-0 bg-grid-pattern opacity-60 pointer-events-none"
+        style="background-size: 40px 40px; z-index: -1;"></div>
+
+    <!-- Header -->
+    <header class="h-20 flex items-center justify-between px-6 lg:px-10 bg-transparent relative z-50">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 text-neutral-dark hover:opacity-80 transition-opacity">
+            <div class="text-primary">
+                <span class="material-symbols-outlined !text-[24px]">stat_3</span>
+            </div>
+            <h2 class="text-lg font-bold leading-tight tracking-tight">Digital Atelier</h2>
+        </a>
+
+        <!-- Center Nav -->
+        <nav class="hidden md:flex items-center gap-8 h-full">
+            <a class="text-neutral-500 hover:text-neutral-dark transition-colors text-sm font-medium" href="#">The
+                Collective</a>
+            <a class="text-neutral-500 hover:text-neutral-dark transition-colors text-sm font-medium"
+                href="index.html">Collection</a>
+            <a class="text-neutral-500 hover:text-neutral-dark transition-colors text-sm font-medium"
+                href="library.html">Fabric Library</a>
+            <a class="text-neutral-500 hover:text-neutral-dark transition-colors text-sm font-medium"
+                href="suite.html">Measurement Suite</a>
+            <div class="h-full flex items-center relative">
+                <a class="text-primary text-sm font-bold" href="journal.html">Journal</a>
+                <div class="absolute bottom-4 left-0 w-full h-[2px] bg-primary rounded-t-sm"></div>
+            </div>
+        </nav>
+
+        <!-- Right Controls -->
+        <div class="flex items-center gap-3">
+            <button
+                class="w-10 h-10 rounded-full flex items-center justify-center text-neutral-700 hover:bg-neutral-200 transition-colors">
+                <span class="material-symbols-outlined !text-[20px]">search</span>
+            </button>
+            <button
+                class="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-700 hover:bg-neutral-200 transition-colors">
+                <span class="material-symbols-outlined !text-[20px]">person</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 lg:px-10 pb-20">
+
+        <!-- Hero Editorial -->
+        <section class="mt-12 mb-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left: Hero Image -->
+                <div class="relative w-full aspect-[16/9] lg:aspect-[4/3] rounded-lg overflow-hidden group">
+                    <img src="public/architecture_of_drape_1772240526911.png" alt="Architecture of Drape fabric"
+                        class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out" />
+                    <!-- Editorial Overlay Tag -->
+                    <div class="absolute bottom-6 left-6 z-10 flex flex-col">
+                        <span class="text-primary text-[10px] font-bold tracking-[0.2em] uppercase mb-1">FEATURED
+                            EDITORIAL</span>
+                        <div class="flex items-center gap-3 text-white text-xs font-medium">
+                            <span>Oct 12, 2023</span>
+                            <span class="w-8 h-px bg-white/50"></span>
+                            <span>8 Min Read</span>
+                        </div>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none">
+                    </div>
+                </div>
+
+                <!-- Right: Hero Text -->
+                <div class="flex flex-col">
+                    <h1 class="text-5xl lg:text-7xl font-bold text-neutral-dark tracking-tight leading-[1.05] mb-6">
+                        The<br>Architecture<br>of <span class="font-normal italic text-neutral-400">Drape</span>
+                    </h1>
+                    <p class="text-neutral-500 text-lg leading-relaxed max-w-md mb-8">
+                        Exploring how digital physics simulation is redefining the way we understand fabric movement
+                        before the first cut is even made.
+                    </p>
+                    <a href="#"
+                        class="inline-flex items-center gap-2 text-xs font-bold text-neutral-dark uppercase tracking-widest hover:text-primary transition-colors group">
+                        READ ARTICLE
+                        <span
+                            class="material-symbols-outlined text-primary text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest Stories Section Header -->
+        <div class="flex items-end justify-between border-b border-gray-200 pb-4 mb-10 mt-24">
+            <h2 class="text-2xl font-bold flex items-center gap-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+                Latest Stories
+            </h2>
+            <div class="flex gap-6 text-xs font-medium uppercase tracking-wider">
+                <button class="text-neutral-400 hover:text-neutral-dark transition-colors">All</button>
+                <button
+                    class="text-neutral-dark font-bold relative after:absolute after:bottom-[-17px] after:left-0 after:w-full after:h-[2px] after:bg-neutral-dark">Craftsmanship</button>
+                <button class="text-neutral-400 hover:text-neutral-dark transition-colors">Technology</button>
+                <button class="text-neutral-400 hover:text-neutral-dark transition-colors">Sustainable</button>
+            </div>
+        </div>
+
+        <!-- Journal Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+
+            <!-- Column 1 -->
+            <div class="flex flex-col gap-16">
+                <!-- Article 1 -->
+                <article
+                    class="group cursor-pointer flex flex-col h-full border border-transparent hover:border-gray-100 p-4 -m-4 rounded-xl transition-all">
+                    <div class="relative w-full bg-[#f4f3f0] aspect-[4/5] rounded overflow-hidden mb-6">
+                        <img src="public/lost_art_vicuna_1772240552153.png"
+                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 mix-blend-multiply" />
+                        <span
+                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-[9px] font-bold tracking-widest uppercase px-3 py-1 text-neutral-dark rounded flex items-center">
+                            HERITAGE
+                        </span>
+                    </div>
+                    <div
+                        class="flex items-center gap-2 text-[9px] font-bold tracking-widest uppercase text-neutral-400 mb-2">
+                        <span class="w-1 h-1 rounded-full bg-primary inline-block"></span>
+                        MATERIAL SCIENCE <span class="px-1">|</span> 6 MIN READ
+                    </div>
+                    <h3
+                        class="text-2xl font-bold text-neutral-dark mb-3 group-hover:text-primary transition-colors leading-snug">
+                        The Lost Art of Vicuña</h3>
+                    <p class="text-xs text-neutral-500 leading-relaxed mb-6 flex-1">
+                        Tracing the origins of the "Fiber of the Gods" from the high Andes to the most exclusive
+                        ateliers in Europe. Why this rare wool remains the pinnacle of...
+                    </p>
+                    <div class="flex items-center justify-between border-t border-gray-100 pt-4 mt-auto">
+                        <span class="text-[10px] text-neutral-400 uppercase tracking-widest">By Alessandro Ricci</span>
+                        <span
+                            class="material-symbols-outlined text-neutral-300 group-hover:text-primary transition-colors text-[18px]">call_made</span>
+                    </div>
+                </article>
+
+                <!-- Article 4 (Pattern Mixing) -->
+                <article
+                    class="group cursor-pointer flex flex-col h-full border border-transparent hover:border-gray-100 p-4 -m-4 rounded-xl transition-all">
+                    <div class="relative w-full aspect-[16/9] overflow-hidden mb-6">
+                        <img src="public/pattern_mixing_blue_1772240604956.png"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                    </div>
+                    <div
+                        class="flex items-center gap-2 text-[9px] font-bold tracking-widest uppercase text-neutral-400 mb-2">
+                        <span class="w-1 h-1 rounded-full bg-primary inline-block"></span>
+                        STYLE GUIDE <span class="px-1">|</span> 7 MIN READ
+                    </div>
+                    <h3
+                        class="text-2xl font-bold text-neutral-dark mb-3 group-hover:text-primary transition-colors leading-snug">
+                        Pattern Mixing for the Modern Gent</h3>
+                    <p class="text-xs text-neutral-500 leading-relaxed mb-6 flex-1">
+                        Breaking the rules of traditional tailoring. How to combine checks, stripes, and textures
+                        without looking chaotic.
+                    </p>
+                    <div class="flex items-center justify-between border-t border-gray-100 pt-4 mt-auto">
+                        <span class="text-[10px] text-neutral-400 uppercase tracking-widest">By Elena Rossini</span>
+                        <span
+                            class="material-symbols-outlined text-neutral-300 group-hover:text-primary transition-colors text-[18px]">call_made</span>
+                    </div>
+                </article>
+
+                <!-- Bottom Logo icon -->
+                <div class="flex items-center gap-3 text-neutral-dark opacity-100 py-10">
+                    <div class="text-primary">
+                        <span class="material-symbols-outlined !text-[24px]">stat_3</span>
+                    </div>
+                    <h2 class="text-lg font-bold leading-tight tracking-tight">Digital Atelier</h2>
+                </div>
+            </div>
+
+            <!-- Column 2 -->
+            <div class="flex flex-col gap-16">
+                <!-- Article 2 -->
+                <article
+                    class="group cursor-pointer flex flex-col h-full border border-transparent hover:border-gray-100 p-4 -m-4 rounded-xl transition-all pt-12 lg:pt-0">
+                    <div class="relative w-full aspect-square overflow-hidden mb-6 rounded">
+                        <img src="public/digital_twins_tech_1772240577554.png"
+                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 sepia-[0.1]" />
+                        <span
+                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-[9px] font-bold tracking-widest uppercase px-3 py-1 text-neutral-dark rounded flex items-center">
+                            INNOVATION
+                        </span>
+                        <div
+                            class="absolute bottom-4 left-4 font-mono text-[8px] text-white/50 tracking-widest uppercase">
+                            CODE: 4B:A642-S, V.2598 E<br>PARAM_CBA91:: K6GN
+                        </div>
+                    </div>
+                    <div
+                        class="flex items-center gap-2 text-[9px] font-bold tracking-widest uppercase text-neutral-400 mb-2">
+                        <span class="w-1 h-1 rounded-full bg-primary inline-block"></span>
+                        FUTURE TECH <span class="px-1">|</span> 4 MIN READ
+                    </div>
+                    <h3
+                        class="text-xl font-bold text-neutral-dark mb-3 group-hover:text-primary transition-colors leading-snug">
+                        Digital Twins: The Future of Fit</h3>
+                    <p class="text-xs text-neutral-500 leading-relaxed mb-6 flex-1">
+                        How 3D body scanning and digital twin technology are eliminating the need for multiple fittings,
+                        creating the perfect garment from data alone.
+                    </p>
+                </article>
+
+                <!-- Manifesto Quote Block -->
+                <article
+                    class="bg-[#faf9f6] border border-gray-200 p-10 flex flex-col justify-center items-center text-center relative shadow-[inset_0_0_20px_rgba(0,0,0,0.01)] min-h-[300px]">
+                    <span class="material-symbols-outlined text-gray-200 text-5xl absolute top-8">format_quote</span>
+                    <h3
+                        class="text-xl font-medium italic text-neutral-dark leading-relaxed max-w-[80%] relative z-10 mt-6 mb-8">
+                        "Tailoring is the art of removing the unnecessary until only the essential remains."
+                    </h3>
+                    <span class="text-[9px] font-bold tracking-widest uppercase text-primary">— DIGITAL ATELIER
+                        MANIFESTO</span>
+                </article>
+
+                <!-- Article 5 (Minimalism) -->
+                <article
+                    class="group cursor-pointer flex flex-col h-full border border-transparent hover:border-gray-100 p-4 -m-4 rounded-xl transition-all">
+                    <div
+                        class="flex items-center gap-2 text-[9px] font-bold tracking-widest uppercase text-neutral-400 mb-2">
+                        <span class="w-1 h-1 rounded-full bg-primary inline-block"></span>
+                        OPINION <span class="px-1">|</span> 5 MIN READ
+                    </div>
+                    <h3
+                        class="text-xl font-bold text-neutral-dark mb-3 group-hover:text-primary transition-colors leading-snug">
+                        Minimalism in the Age of Excess</h3>
+
+                    <div class="flex items-center justify-between border-t border-gray-100 pt-4 mt-auto">
+                        <span class="text-[10px] text-neutral-400 uppercase tracking-widest">By The Collective</span>
+                        <span
+                            class="material-symbols-outlined text-neutral-300 group-hover:text-primary transition-colors text-[18px]">call_made</span>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Column 3 -->
+            <div class="flex flex-col gap-16">
+                <!-- Article 3 -->
+                <article
+                    class="group cursor-pointer flex flex-col h-full border border-transparent hover:border-gray-100 p-4 -m-4 rounded-xl transition-all">
+                    <div class="relative w-full aspect-[2/3] overflow-hidden mb-6 rounded">
+                        <img src="public/sandstone_linen_fabric_1772210711628.png"
+                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                    </div>
+                    <div
+                        class="flex items-center gap-2 text-[9px] font-bold tracking-widest uppercase text-neutral-400 mb-2">
+                        <span class="w-1 h-1 rounded-full bg-primary inline-block"></span>
+                        SOURCING <span class="px-1">|</span> 5 MIN READ
+                    </div>
+                    <h3
+                        class="text-xl font-bold text-neutral-dark mb-3 group-hover:text-primary transition-colors leading-snug">
+                        Art Du Lin: Solbiati's Masterpiece</h3>
+                    <p class="text-xs text-neutral-500 leading-relaxed mb-6 flex-1">
+                        A deep dive into the texture and breathability of the world's finest linen. Why the wrinkling is
+                        a feature, not a bug, of true elegance.
+                    </p>
+                    <div class="flex items-center justify-between border-t border-gray-100 pt-4 mt-auto">
+                        <span class="text-[10px] text-neutral-400 uppercase tracking-widest">By Marcus Thorne</span>
+                        <span
+                            class="material-symbols-outlined text-neutral-300 group-hover:text-primary transition-colors text-[18px]">call_made</span>
+                    </div>
+                </article>
+
+                <!-- Newsletter Subscribe -->
+                <div class="bg-[#221d10] p-8 text-white rounded-sm mt-4 relative overflow-hidden">
+                    <span class="material-symbols-outlined text-primary mb-4 text-[24px]">drafts</span>
+                    <h3 class="text-2xl font-bold mb-3 tracking-tight">The Weekly Thread</h3>
+                    <p class="text-[11px] text-neutral-400 leading-relaxed mb-6">
+                        Curated sartorial intelligence delivered to your inbox every Sunday morning.
+                    </p>
+                    <form class="flex flex-col gap-3"
+                        onsubmit="event.preventDefault(); this.querySelector('button').innerHTML='SUBSCRIBED!'; this.querySelector('button').classList.add('bg-white', 'text-neutral-dark'); setTimeout(() => this.reset(), 3000);">
+                        <input type="email" placeholder="Email Address" required
+                            class="w-full bg-[#1b180d] border border-[#3a3321] rounded px-4 py-3 text-xs text-white focus:outline-none focus:border-primary placeholder-neutral-600 transition-colors" />
+                        <button type="submit"
+                            class="w-full bg-primary text-neutral-dark font-bold text-xs uppercase tracking-widest py-3 rounded hover:bg-white transition-colors duration-300">
+                            SUBSCRIBE
+                        </button>
+                    </form>
+                    <div
+                        class="mt-12 text-[8px] uppercase tracking-[0.2em] text-neutral-500 font-bold border-t border-[#3a3321] pt-4">
+                        JOIN 12,000+ SUBSCRIBERS
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Simple Footer inside main layout content to match screenshot at bottom -->
+    <footer
+        class="max-w-7xl mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row justify-between items-center text-[10px] text-neutral-400 uppercase tracking-widest font-bold border-t border-gray-200 mt-10 w-full mb-8">
+        <div class="flex gap-6 mb-4 md:mb-0">
+            <a href="#" class="hover:text-neutral-dark transition-colors">Instagram</a>
+            <a href="#" class="hover:text-neutral-dark transition-colors">Twitter</a>
+            <a href="#" class="hover:text-neutral-dark transition-colors">LinkedIn</a>
+        </div>
+        <div>
+            © 2024 Digital Atelier. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -8,6 +8,7 @@ export default defineConfig({
                 main: resolve(__dirname, 'index.html'),
                 suite: resolve(__dirname, 'suite.html'),
                 library: resolve(__dirname, 'library.html'),
+                journal: resolve(__dirname, 'journal.html'),
             }
         }
     }
